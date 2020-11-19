@@ -6,5 +6,22 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'taller1';
+  title = 'BIT Bank';
+  cliente = {
+    nombre: '',
+    saldo: 0
+  };
+
+  abrirCuenta() {
+    console.log(this.cliente.nombre);
+    console.log(this.cliente.saldo);
+    if (this.cliente.nombre !== '' && this.cliente.saldo >= 0) {
+      let ingreso = true;
+    } else if (this.cliente.nombre === '') {
+      alert('Debes ingresar un nombre.');
+    } else {
+      alert('Debes ingresar un saldo mayor o igual a cero.');
+    }
+  }
+
 }
