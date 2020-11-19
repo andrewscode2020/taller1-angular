@@ -1,37 +1,57 @@
-<h1>{{ title }}</h1>
-
-<form>
-  <div class="form-group">
-    <label for="nombreCliente">Nombre</label>
-    <input
-      type="text"
-      class="form-control"
-      id="nombreCliente"
-      [(ngModel)]="cliente.nombre"
-      [ngModelOptions]="{ standalone: true }"
-    />
+<!-- Navbar -->
+<nav class="navbar navbar-dark bg-danger">
+  <span class="navbar-brand font-weight-bold">{{ title }}</span>
+  <div *ngIf="ingreso">
+    <span class="navbar-text text-right text-light"
+      >{{ cliente.nombre }} /</span
+    >
+    <a
+      class="navbar-text text-right text-light ml-2 text-decoration-none"
+      (click)="salir()"
+      href="#"
+      >Salir</a
+    >
   </div>
-  <div class="form-group">
-    <label for="saldoCliente">Saldo</label>
-    <input
-      type="number"
-      class="form-control"
-      id="saldoCliente"
-      [(ngModel)]="cliente.saldo"
-      [ngModelOptions]="{ standalone: true }"
-    />
-  </div>
-  <button class="btn btn-success" (click)="abrirCuenta()">Abrir Cuenta</button>
-</form>
+</nav>
 
-<div>
-  <h1>Saldo</h1>
-  {{ cliente.saldo }}
-  <button class="btn btn-success">Consignar</button>
-  <button class="btn btn-danger">Retirar</button>
+<!-- Sección de Inicio -->
+<div class="container border py-5 mt-3" *ngIf="!ingreso">
+  <form>
+    <div class="form-group w-50 mx-auto">
+      <label for="nombreCliente">Nombre</label>
+      <input
+        type="text"
+        class="form-control"
+        id="nombreCliente"
+        name="nombre"
+        [(ngModel)]="cliente.nombre"
+      />
+    </div>
+    <div class="form-group w-50 mx-auto">
+      <label for="saldoCliente">Saldo</label>
+      <input
+        type="number"
+        step="1000"
+        class="form-control"
+        id="saldoCliente"
+        name="saldo"
+        [(ngModel)]="cliente.saldo"
+      />
+    </div>
+    <button class="btn btn-success d-flex mx-auto" (click)="abrirCuenta()">
+      Abrir Cuenta
+    </button>
+  </form>
 </div>
 
-<!-- <li *ngFor="let animal of animales; index as i">
-  {{ animal }}
-  <button class="btn btn-danger" (click)="removerAnimal(i)">Remover</button>
-</li> -->
+<!-- Sección Cuenta del Cliente -->
+<div class="container border text-center py-5 mt-3" *ngIf="ingreso">
+  <h2>Saldo</h2>
+  <h1 class="text-primary">$ {{ cliente.saldo.toLocaleString() }}</h1>
+  <div class="d-flex justify-content-between w-50 mx-auto mt-5">
+    <button class="btn btn-success btn-lg" (click)="consignar()">
+      Consignar
+    </button>
+    <button class="btn btn-danger btn-lg" (click)="retirar()">Retirar</button>
+  </div>
+</div>
